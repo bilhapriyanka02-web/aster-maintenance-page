@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F4F2EE">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Pemeliharaan Sistem · Aster Assistant</title>
+  <style>
+    :root{color-scheme:light;--paper:#F4F2EE;--white:#FBFAF7;--ink:#182235;--soft:#636B78;--line:#D8D7D3;--accent:#2860D9}
+    *{box-sizing:border-box}
+    html,body{min-height:100%;margin:0}
+    body{background:var(--paper);color:var(--ink);font-family:Inter,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+    body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(135deg,transparent 0 48%,rgba(255,255,255,.45) 48% 49%,transparent 49% 100%);opacity:.35}
+    .page{max-width:1280px;min-height:100svh;margin:auto;padding:36px clamp(24px,6vw,82px) 30px;display:flex;flex-direction:column}
+    header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+    .brand{font-size:15px;font-weight:650;letter-spacing:-.045em;color:var(--ink)}
+    .brand .separator{color:#A0A4AC;font-weight:350;margin:0 8px}
+    .brand .assistant{font-size:13px;font-weight:460;letter-spacing:-.01em}
+    .meta{font-size:10px;font-weight:650;color:var(--soft);letter-spacing:.13em}
+    main{flex:1;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,.6fr);align-items:center;gap:clamp(32px,8vw,115px);padding:90px 0}
+    .eyebrow{display:flex;align-items:center;gap:11px;font-size:11px;font-weight:650;letter-spacing:.14em;color:var(--soft);text-transform:uppercase}
+    .eyebrow::before{content:"";width:9px;height:9px;background:var(--accent);border-radius:2px}
+    h1{max-width:760px;margin:25px 0 27px;font-weight:540;font-size:clamp(42px,6.4vw,84px);line-height:1.07;letter-spacing:-.065em}
+    h1 em{font-style:normal;color:var(--accent)}
+    .lead{max-width:570px;color:#535D6B;font-size:clamp(15px,1.45vw,18px);line-height:1.78;letter-spacing:-.014em;margin:0}
+    .actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:40px}
+    .refresh{display:inline-flex;align-items:center;gap:13px;border:1px solid var(--ink);color:var(--ink);font-family:inherit;font-size:13px;font-weight:600;min-height:49px;padding:0 23px;background:transparent;text-decoration:none;border-radius:4px;transition:background .2s,color .2s;cursor:pointer}
+    .refresh:hover,.refresh:focus-visible{background:var(--ink);color:white;outline-offset:3px}
+    .refresh svg{height:16px;width:16px}
+    .note{color:var(--soft);font-size:12px}
+    aside{align-self:stretch;display:flex;align-items:center}
+    .scene{position:relative;aspect-ratio:.86;width:100%;max-width:355px;margin-left:auto;display:grid;align-items:end;overflow:hidden;border:1px solid #DBDDD9;border-radius:2px;background:linear-gradient(150deg,#E9EAE6 3%,#E3E7E8 67%,#D8DFE3 100%)}
+    .scene::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.26),transparent 46%);pointer-events:none}
+    .facade{height:78%;position:relative;transform:translate(18%,9%);background:linear-gradient(111deg,#F9FAF9 0%,#D4DADF 66%,#C6CED4 100%);clip-path:polygon(0 17%,37% 3%,100% 0,100% 100%,0 100%);box-shadow:-20px 0 40px #606E7922}
+    .facade::before{content:"";position:absolute;inset:10% 0 0 0;background:repeating-linear-gradient(to bottom,transparent 0 40px,rgba(114,135,150,.26) 41px 43px,transparent 44px 50px)}
+    .edge{position:absolute;left:0;top:30%;bottom:0;width:40%;background:linear-gradient(125deg,#F7F8F6,#E0E5E7);clip-path:polygon(0 0,100% 8%,100% 100%,0 100%);opacity:.9}
+    .scene-label{position:absolute;bottom:20px;left:20px;z-index:1;font-size:10px;letter-spacing:.11em;color:#3F4C57;font-weight:600}
+    .status-row{padding-top:23px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:start;gap:25px;flex-wrap:wrap}
+    .status{font-size:11px;display:flex;align-items:center;gap:10px;color:var(--soft)}
+    .status-dot{width:7px;height:7px;background:var(--accent);border-radius:50%}
+    .status strong{color:var(--ink);font-weight:600}
+    .footer{font-size:11px;color:#7A8089}
+    @media(max-width:760px){.page{padding:25px 24px 27px}header{padding-bottom:22px}main{display:flex;flex-direction:column;gap:45px;align-items:stretch;padding:80px 0 55px}h1{margin-top:19px;font-size:clamp(42px,10vw,65px)}aside{display:none}.lead{line-height:1.72}.actions{margin-top:30px}.meta{font-size:9px}.status-row{gap:14px}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">Aster<span class="separator">/</span><span class="assistant">Assistant</span></div>
+      <div class="meta">SERVICE UPDATE / 2026</div>
+    </header>
+    <main>
+      <section aria-labelledby="maintenance-heading">
+        <div class="eyebrow">Pembaruan layanan sementara</div>
+        <h1 id="maintenance-heading">Kami sedang<br><em>merawat</em> Aster.</h1>
+        <p class="lead">Aster Assistant sedang menjalani pemeliharaan sistem. Akses sementara dibatasi agar pembaruan dapat dilakukan dengan aman. Kami akan membuka layanan kembali setelah pemeriksaan selesai.</p>
+        <div class="actions">
+          <a class="refresh" href="/" aria-label="Periksa kembali ketersediaan Aster Assistant">
+            Periksa kembali
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+          <span class="note">Tidak perlu mengulang permintaan generate.</span>
+        </div>
+      </section>
+      <aside aria-hidden="true"><div class="scene"><div class="facade"><div class="edge"></div></div><div class="scene-label">ASTER / SYSTEM MAINTENANCE</div></div></aside>
+    </main>
+    <footer class="status-row">
+      <div class="status"><span class="status-dot"></span><span><strong>Pemeliharaan berlangsung.</strong> Status pekerjaan dan Coin akan diperiksa setelah layanan kembali.</span></div>
+      <span class="footer">© 2026 Aster Assistant</span>
+    </footer>
+  </div>
+</body>
+</html>
