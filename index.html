@@ -41,8 +41,25 @@
     .status-dot{width:7px;height:7px;background:var(--accent);border-radius:50%}
     .status strong{color:var(--ink);font-weight:600}
     .footer{font-size:11px;color:#7A8089}
+    /* Subtle activity, not a countdown or percentage-based progress indicator. */
+    .activity{width:194px;height:2px;margin-top:29px;background:#D6DBE2;overflow:hidden;position:relative;border-radius:2px}
+    .activity span{position:absolute;inset:0 auto 0 0;width:64px;background:linear-gradient(90deg,transparent,var(--accent) 45%,#8CACF2 90%,transparent);animation:activityTravel 3.6s ease-in-out infinite}
+    .scene::before{content:"";position:absolute;z-index:2;inset:-35%;pointer-events:none;background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.35) 48%,rgba(255,255,255,.12) 52%,transparent 62%);animation:lightSweep 10s ease-in-out infinite}
+    .facade{animation:facadeDrift 9s ease-in-out infinite}
+    .status-dot{flex:none;animation:statusPulse 3.1s ease-in-out infinite}
+    main section>*{animation:appear .7s both}
+    main section>.eyebrow{animation-delay:.05s}
+    main section>h1{animation-delay:.14s}
+    main section>.lead{animation-delay:.23s}
+    main section>.activity{animation-delay:.31s}
+    main section>.actions{animation-delay:.38s;margin-top:30px}
+    @keyframes activityTravel{0%{transform:translateX(-70px)}50%,100%{transform:translateX(204px)}}
+    @keyframes facadeDrift{0%,100%{transform:translate(18%,9%)}50%{transform:translate(18%,7%)}}
+    @keyframes lightSweep{0%,20%{transform:translateX(-70%)}58%,100%{transform:translateX(75%)}}
+    @keyframes statusPulse{0%,100%{box-shadow:0 0 0 0 rgba(40,96,217,.18);opacity:.8}50%{box-shadow:0 0 0 6px rgba(40,96,217,0);opacity:1}}
+    @keyframes appear{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
     @media(max-width:760px){.page{padding:25px 24px 27px}header{padding-bottom:22px}main{display:flex;flex-direction:column;gap:45px;align-items:stretch;padding:80px 0 55px}h1{margin-top:19px;font-size:clamp(42px,10vw,65px)}aside{display:none}.lead{line-height:1.72}.actions{margin-top:30px}.meta{font-size:9px}.status-row{gap:14px}}
-    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
   </style>
 </head>
 <body>
@@ -56,6 +73,7 @@
         <div class="eyebrow">Pembaruan layanan sementara</div>
         <h1 id="maintenance-heading">Kami sedang<br><em>merawat</em> Aster.</h1>
         <p class="lead">Aster Assistant sedang menjalani pemeliharaan sistem. Akses sementara dibatasi agar pembaruan dapat dilakukan dengan aman. Kami akan membuka layanan kembali setelah pemeriksaan selesai.</p>
+        <div class="activity" aria-hidden="true"><span></span></div>
         <div class="actions">
           <a class="refresh" href="/" aria-label="Periksa kembali ketersediaan Aster Assistant">
             Periksa kembali
