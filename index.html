@@ -1,93 +1,119 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#F4F2EE">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Pemeliharaan Sistem · Aster Assistant</title>
-  <style>
-    :root{color-scheme:light;--paper:#F4F2EE;--white:#FBFAF7;--ink:#182235;--soft:#636B78;--line:#D8D7D3;--accent:#2860D9}
-    *{box-sizing:border-box}
-    html,body{min-height:100%;margin:0}
-    body{background:var(--paper);color:var(--ink);font-family:Inter,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
-    body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(135deg,transparent 0 48%,rgba(255,255,255,.45) 48% 49%,transparent 49% 100%);opacity:.35}
-    .page{max-width:1280px;min-height:100svh;margin:auto;padding:36px clamp(24px,6vw,82px) 30px;display:flex;flex-direction:column}
-    header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-bottom:28px;border-bottom:1px solid var(--line)}
-    .brand{font-size:15px;font-weight:650;letter-spacing:-.045em;color:var(--ink)}
-    .brand .separator{color:#A0A4AC;font-weight:350;margin:0 8px}
-    .brand .assistant{font-size:13px;font-weight:460;letter-spacing:-.01em}
-    .meta{font-size:10px;font-weight:650;color:var(--soft);letter-spacing:.13em}
-    main{flex:1;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,.6fr);align-items:center;gap:clamp(32px,8vw,115px);padding:90px 0}
-    .eyebrow{display:flex;align-items:center;gap:11px;font-size:11px;font-weight:650;letter-spacing:.14em;color:var(--soft);text-transform:uppercase}
-    .eyebrow::before{content:"";width:9px;height:9px;background:var(--accent);border-radius:2px}
-    h1{max-width:760px;margin:25px 0 27px;font-weight:540;font-size:clamp(42px,6.4vw,84px);line-height:1.07;letter-spacing:-.065em}
-    h1 em{font-style:normal;color:var(--accent)}
-    .lead{max-width:570px;color:#535D6B;font-size:clamp(15px,1.45vw,18px);line-height:1.78;letter-spacing:-.014em;margin:0}
-    .actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:40px}
-    .refresh{display:inline-flex;align-items:center;gap:13px;border:1px solid var(--ink);color:var(--ink);font-family:inherit;font-size:13px;font-weight:600;min-height:49px;padding:0 23px;background:transparent;text-decoration:none;border-radius:4px;transition:background .2s,color .2s;cursor:pointer}
-    .refresh:hover,.refresh:focus-visible{background:var(--ink);color:white;outline-offset:3px}
-    .refresh svg{height:16px;width:16px}
-    .note{color:var(--soft);font-size:12px}
-    aside{align-self:stretch;display:flex;align-items:center}
-    .scene{position:relative;aspect-ratio:.86;width:100%;max-width:355px;margin-left:auto;display:grid;align-items:end;overflow:hidden;border:1px solid #DBDDD9;border-radius:2px;background:linear-gradient(150deg,#E9EAE6 3%,#E3E7E8 67%,#D8DFE3 100%)}
-    .scene::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.26),transparent 46%);pointer-events:none}
-    .facade{height:78%;position:relative;transform:translate(18%,9%);background:linear-gradient(111deg,#F9FAF9 0%,#D4DADF 66%,#C6CED4 100%);clip-path:polygon(0 17%,37% 3%,100% 0,100% 100%,0 100%);box-shadow:-20px 0 40px #606E7922}
-    .facade::before{content:"";position:absolute;inset:10% 0 0 0;background:repeating-linear-gradient(to bottom,transparent 0 40px,rgba(114,135,150,.26) 41px 43px,transparent 44px 50px)}
-    .edge{position:absolute;left:0;top:30%;bottom:0;width:40%;background:linear-gradient(125deg,#F7F8F6,#E0E5E7);clip-path:polygon(0 0,100% 8%,100% 100%,0 100%);opacity:.9}
-    .scene-label{position:absolute;bottom:20px;left:20px;z-index:1;font-size:10px;letter-spacing:.11em;color:#3F4C57;font-weight:600}
-    .status-row{padding-top:23px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:start;gap:25px;flex-wrap:wrap}
-    .status{font-size:11px;display:flex;align-items:center;gap:10px;color:var(--soft)}
-    .status-dot{width:7px;height:7px;background:var(--accent);border-radius:50%}
-    .status strong{color:var(--ink);font-weight:600}
-    .footer{font-size:11px;color:#7A8089}
-    /* Subtle activity, not a countdown or percentage-based progress indicator. */
-    .activity{width:194px;height:2px;margin-top:29px;background:#D6DBE2;overflow:hidden;position:relative;border-radius:2px}
-    .activity span{position:absolute;inset:0 auto 0 0;width:64px;background:linear-gradient(90deg,transparent,var(--accent) 45%,#8CACF2 90%,transparent);animation:activityTravel 3.6s ease-in-out infinite}
-    .scene::before{content:"";position:absolute;z-index:2;inset:-35%;pointer-events:none;background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.35) 48%,rgba(255,255,255,.12) 52%,transparent 62%);animation:lightSweep 10s ease-in-out infinite}
-    .facade{animation:facadeDrift 9s ease-in-out infinite}
-    .status-dot{flex:none;animation:statusPulse 3.1s ease-in-out infinite}
-    main section>*{animation:appear .7s both}
-    main section>.eyebrow{animation-delay:.05s}
-    main section>h1{animation-delay:.14s}
-    main section>.lead{animation-delay:.23s}
-    main section>.activity{animation-delay:.31s}
-    main section>.actions{animation-delay:.38s;margin-top:30px}
-    @keyframes activityTravel{0%{transform:translateX(-70px)}50%,100%{transform:translateX(204px)}}
-    @keyframes facadeDrift{0%,100%{transform:translate(18%,9%)}50%{transform:translate(18%,7%)}}
-    @keyframes lightSweep{0%,20%{transform:translateX(-70%)}58%,100%{transform:translateX(75%)}}
-    @keyframes statusPulse{0%,100%{box-shadow:0 0 0 0 rgba(40,96,217,.18);opacity:.8}50%{box-shadow:0 0 0 6px rgba(40,96,217,0);opacity:1}}
-    @keyframes appear{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
-    @media(max-width:760px){.page{padding:25px 24px 27px}header{padding-bottom:22px}main{display:flex;flex-direction:column;gap:45px;align-items:stretch;padding:80px 0 55px}h1{margin-top:19px;font-size:clamp(42px,10vw,65px)}aside{display:none}.lead{line-height:1.72}.actions{margin-top:30px}.meta{font-size:9px}.status-row{gap:14px}}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#F3F1EC">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Aster Assistant — Pemeliharaan Sistem</title>
+<style>
+:root{--paper:#F3F1EC;--ink:#182235;--muted:#606B7A;--line:#D8D9D5;--blue:#2563EB}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none}
+body{background:var(--paper);color:var(--ink);font-family:Inter,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.shell{width:100%;max-width:1440px;height:100svh;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;margin:auto;padding:clamp(18px,3.5vh,36px) clamp(24px,6vw,88px);position:relative;isolation:isolate;overflow:hidden}
+.shell:before{content:"";position:absolute;inset:0;z-index:-3;pointer-events:none;background:linear-gradient(115deg,transparent 52%,rgba(37,99,235,.035) 100%)}
+header{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:20px;position:relative;z-index:2}
+.brand{font-size:16px;font-weight:650;letter-spacing:-.045em;white-space:nowrap}
+.brand b{font-weight:400;color:#A2A8AF;margin:0 8px}.brand small{font-size:13px;font-weight:450;letter-spacing:0}
+.meta{color:var(--muted);font-size:10px;letter-spacing:.14em;font-weight:600;white-space:nowrap}
+main{min-height:0;display:flex;align-items:center;position:relative;z-index:1}
+.copy{max-width:670px;position:relative;z-index:3}
+.eyebrow{display:flex;align-items:center;gap:10px;text-transform:uppercase;font-weight:650;letter-spacing:.125em;font-size:11px;color:var(--muted)}
+.eyebrow:before{content:"";height:9px;width:9px;border-radius:2px;background:var(--blue);flex:none}
+h1{font-size:clamp(46px,6.4vw,88px);font-weight:540;letter-spacing:-.065em;line-height:1.08;margin:23px 0}
+h1 em{font-style:normal;color:var(--blue)}
+.lead{color:#515C6C;max-width:550px;font-size:clamp(15px,1.4vw,18px);line-height:1.75;margin:0}
+.activity{height:3px;width:205px;overflow:hidden;background:#CCD6E2;border-radius:3px;position:relative;margin-top:30px}
+.activity:after{content:"";position:absolute;width:45%;height:100%;left:-45%;background:linear-gradient(90deg,transparent,var(--blue),#83ADFF,transparent);animation:progress 2.5s linear infinite}
+.actions{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:28px}
+.refresh{display:inline-flex;align-items:center;gap:15px;border:1px solid var(--ink);border-radius:4px;min-height:47px;padding:0 21px;color:var(--ink);text-decoration:none;font-weight:600;font-size:13px;background:rgba(243,241,236,.8)}
+.refresh:hover{background:var(--ink);color:#fff}.note{color:var(--muted);font-size:12px}
+/* Architectural illustration: a background layer, NOT a separate card. */
+.architecture{position:absolute;z-index:0;right:-1%;top:50%;transform:translateY(-50%);width:min(58vw,740px);height:auto;max-height:92%;pointer-events:none;opacity:.78}
+.architecture svg{width:100%;height:auto;display:block;overflow:visible}
+.float-building{animation:floatBuilding 7s ease-in-out infinite}
+.window-glow{animation:glow 4s ease-in-out infinite}.window-glow.two{animation-delay:-1.7s}.window-glow.three{animation-delay:-3s}
+.light-scan{animation:rise 5s ease-in-out infinite}
+.orbit{transform-box:fill-box;transform-origin:center;animation:orbit 36s linear infinite}
+footer{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:15px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:11px}
+.status{display:flex;align-items:center;gap:10px;min-width:0}.status strong{color:var(--ink)}
+.dot{width:8px;height:8px;flex:none;background:var(--blue);border-radius:50%;animation:pulse 2s ease-out infinite}
+.copyright{white-space:nowrap;color:#7E858F}
+@keyframes progress{to{left:105%}}
+@keyframes floatBuilding{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes glow{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes rise{0%,100%{transform:translateY(50px);opacity:.15}50%{transform:translateY(-100px);opacity:1}}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,99,235,.38)}75%,100%{box-shadow:0 0 0 9px rgba(37,99,235,0)}}
+@media(max-width:760px){
+ .shell{padding:19px 24px 20px}
+ header{padding-bottom:16px}.brand{font-size:15px}.brand small{font-size:12px}.meta{font-size:8px;letter-spacing:.09em}
+ main{align-items:center}.copy{max-width:100%;padding-bottom:10px}
+ .eyebrow{font-size:9px;letter-spacing:.09em}
+ h1{font-size:clamp(41px,10.9vw,60px);line-height:1.08;margin:17px 0 18px}
+ .lead{font-size:clamp(12px,3.5vw,14px);line-height:1.62;max-width:350px}
+ .activity{margin-top:23px;width:180px}.actions{margin-top:22px;gap:13px}
+ .refresh{min-height:43px;padding:0 17px;font-size:12px}.note{font-size:10.5px;flex-basis:100%}
+ .architecture{width:clamp(340px,110vw,530px);right:-39%;top:46%;max-height:none;opacity:.26}
+ footer{padding-top:14px;gap:12px;font-size:9.5px}.status{line-height:1.4}.copyright{font-size:9px}
+}
+@media(max-height:700px){
+ .shell{padding-top:14px;padding-bottom:13px}header{padding-bottom:12px}
+ h1{font-size:clamp(38px,8vh,66px);margin:12px 0}
+ .lead{font-size:12px;line-height:1.5}.activity{margin-top:16px}
+ .actions{margin-top:14px}.refresh{min-height:38px}.note{font-size:10px}
+ footer{padding-top:10px}
+}
+@media(max-height:520px){.meta{display:none}.note{display:none}.architecture{opacity:.16}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+/* Lock the static maintenance viewport while keeping CSS animations */
+html,body,.shell{touch-action:none!important}
+.refresh{touch-action:manipulation!important}
+@supports(height:100dvh){.shell{height:100dvh}}
+</style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <div class="brand">Aster<span class="separator">/</span><span class="assistant">Assistant</span></div>
-      <div class="meta">SERVICE UPDATE / 2026</div>
-    </header>
-    <main>
-      <section aria-labelledby="maintenance-heading">
-        <div class="eyebrow">Pembaruan layanan sementara</div>
-        <h1 id="maintenance-heading">Kami sedang<br><em>merawat</em> Aster.</h1>
-        <p class="lead">Aster Assistant sedang menjalani pemeliharaan sistem. Akses sementara dibatasi agar pembaruan dapat dilakukan dengan aman. Kami akan membuka layanan kembali setelah pemeriksaan selesai.</p>
-        <div class="activity" aria-hidden="true"><span></span></div>
-        <div class="actions">
-          <a class="refresh" href="/" aria-label="Periksa kembali ketersediaan Aster Assistant">
-            Periksa kembali
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-          </a>
-          <span class="note">Tidak perlu mengulang permintaan generate.</span>
-        </div>
-      </section>
-      <aside aria-hidden="true"><div class="scene"><div class="facade"><div class="edge"></div></div><div class="scene-label">ASTER / SYSTEM MAINTENANCE</div></div></aside>
-    </main>
-    <footer class="status-row">
-      <div class="status"><span class="status-dot"></span><span><strong>Pemeliharaan berlangsung.</strong> Status pekerjaan dan Coin akan diperiksa setelah layanan kembali.</span></div>
-      <span class="footer">© 2026 Aster Assistant</span>
-    </footer>
+<div class="shell">
+<header><div class="brand">Aster<b>/</b><small>Assistant</small></div><div class="meta">SERVICE UPDATE / 2026</div></header>
+<main>
+  <div class="architecture" aria-hidden="true">
+   <svg viewBox="0 0 760 780" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+     <linearGradient id="front" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#AAC0D1"/></linearGradient>
+     <linearGradient id="side" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#99B0C4"/><stop offset="1" stop-color="#496985"/></linearGradient>
+    </defs>
+    <g class="orbit" fill="none" stroke="#2563EB" stroke-width="3" opacity=".5"><ellipse cx="470" cy="400" rx="230" ry="246"/></g>
+    <g stroke="#7891A8" stroke-width="1" opacity=".18"><path d="M0 170H760M0 320H760M0 470H760M0 620H760M120 0V780M260 0V780M400 0V780M540 0V780M680 0V780"/></g>
+    <g class="float-building">
+     <path d="M280 185L490 125L490 690L280 740Z" fill="url(#front)" stroke="#9AB0C2" stroke-width="3"/>
+     <path d="M490 125L654 221L654 737L490 690Z" fill="url(#side)" stroke="#59758E" stroke-width="3"/>
+     <path d="M280 185L391 114L654 221L490 125Z" fill="#F4F9FC" stroke="#9AB0C2" stroke-width="3"/>
+     <g stroke="#8AA4B8" stroke-width="2"><path d="M332 171V726M388 155V713M444 139V702"/><path d="M280 286L490 231L654 326M280 395L490 340L654 435M280 504L490 449L654 544M280 613L490 558L654 653"/></g>
+     <g fill="#42617C"><path d="M310 246L351 235V276L310 287ZM368 230L409 219V260L368 271ZM426 214L467 203V244L426 255Z"/><path d="M310 354L351 343V384L310 395ZM368 338L409 327V368L368 379ZM426 322L467 311V352L426 363Z"/><path d="M310 463L351 452V493L310 504ZM368 447L409 436V477L368 488ZM426 431L467 420V461L426 472Z"/><path d="M310 572L351 561V602L310 613ZM368 556L409 545V586L368 597ZM426 540L467 529V570L426 581Z"/></g>
+     <g fill="#2563EB"><path class="window-glow" d="M310 246L351 235V276L310 287Z"/><path class="window-glow two" d="M426 322L467 311V352L426 363Z"/><path class="window-glow three" d="M368 447L409 436V477L368 488Z"/></g>
+     <g stroke="#D1E6F8" stroke-width="14" opacity=".75"><path d="M521 287L622 343M521 396L622 452M521 505L622 561M521 614L622 670"/></g>
+     <path d="M490 125V690" stroke="#2563EB" stroke-width="8"/>
+     <rect class="light-scan" x="566" y="503" width="35" height="35" rx="2" fill="#2563EB" stroke="#A6C6FF" stroke-width="3"/>
+    </g>
+    <path d="M200 746L711 690" stroke="#2563EB" stroke-width="3" opacity=".35"/>
+    <circle cx="206" cy="220" r="44" fill="none" stroke="#2563EB" stroke-width="3" opacity=".6"/>
+    <path d="M183 220H229M206 197V243" stroke="#2563EB" stroke-width="3" opacity=".6"/>
+   </svg>
   </div>
+  <section class="copy">
+   <div class="eyebrow">Pembaruan layanan sementara</div>
+   <h1>Kami sedang<br><em>merawat</em> Aster.</h1>
+   <p class="lead">Aster Assistant sedang menjalani pemeliharaan sistem. Akses sementara dibatasi agar pembaruan berlangsung aman. Layanan akan kembali dibuka setelah pemeriksaan selesai.</p>
+   <div class="activity" aria-hidden="true"></div>
+   <div class="actions"><a class="refresh" href="/">Periksa kembali <span aria-hidden="true">→</span></a><span class="note">Tidak perlu mengulang permintaan generate.</span></div>
+  </section>
+</main>
+<footer><div class="status"><span class="dot"></span><span><strong>Pemeliharaan berlangsung.</strong> Status pekerjaan dan Coin diperiksa saat layanan kembali.</span></div><span class="copyright">© 2026 Aster Assistant</span></footer>
+</div>
+<script>
+document.addEventListener('gesturestart',function(e){e.preventDefault()},{passive:false});
+document.addEventListener('touchmove',function(e){if(e.touches.length>1)e.preventDefault()},{passive:false});
+</script>
 </body>
 </html>
